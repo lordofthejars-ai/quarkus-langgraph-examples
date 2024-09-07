@@ -96,6 +96,39 @@ public class GraphProducer {
             ;
     }
 
+    public static CompiledGraph<State> buildSingleGraphTimeTravel() throws Exception {
+
+        CompileConfig.Builder config = new CompileConfig.Builder();
+
+        if( checkpointSaver != null ) {
+            config.checkpointSaver(checkpointSaver);
+        }
+
+        config.interruptAfter("node_2");
+
+        return new StateGraph<>(State::new)
+            .addEdge(START,"node_1")
+            .addNode("node_1", node_async(state -> {
+                //throw new RuntimeException();
+                System.out.println("Function 1");
+
+                return Map.of("msg", "Function 1");
+            }))
+            .addNode("node_2", node_async(state -> {
+                System.out.println("Function 2");
+                return Map.of("msg", "Function 2");
+            }))
+            .addNode("node_3", node_async(state -> {
+                System.out.println("Function 3");
+                return Map.of("msg", "Function 3");
+            }))
+            .addEdge("node_1", "node_2")
+            .addEdge("node_2", "node_3")
+            .addEdge("node_3", END)
+            .compile(config.build())
+            ;
+    }
+
     public static CompiledGraph<State> buildSingleGraph() throws Exception {
 
         CompileConfig.Builder config = new CompileConfig.Builder();
