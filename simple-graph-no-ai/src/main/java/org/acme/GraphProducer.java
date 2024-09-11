@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Random;
 import org.bsc.langgraph4j.CompileConfig;
 import org.bsc.langgraph4j.CompiledGraph;
+import org.bsc.langgraph4j.GraphStateException;
 import org.bsc.langgraph4j.StateGraph;
 import org.bsc.langgraph4j.checkpoint.BaseCheckpointSaver;
 import org.bsc.langgraph4j.checkpoint.MemorySaver;
@@ -77,6 +78,9 @@ public class GraphProducer {
             ;
     }
 
+
+
+
     public static CompiledGraph<AppenderState> buildSingleGraphAppender() throws Exception {
 
         return new StateGraph<>(AppenderState.SCHEMA, AppenderState::new)
@@ -127,6 +131,40 @@ public class GraphProducer {
             .addEdge("node_3", END)
             .compile(config.build())
             ;
+    }
+
+    public static CompiledGraph<State> buildSingleGraphHumanInteraction() throws GraphStateException {
+
+        CompileConfig.Builder config = new CompileConfig.Builder();
+
+        if( checkpointSaver != null ) {
+            config.checkpointSaver(checkpointSaver);
+        }
+
+        config.interruptAfter("node_2");
+
+        return new StateGraph<>(State::new)
+            .addEdge(START,"node_1")
+            .addNode("node_1", node_async(state -> {
+                //throw new RuntimeException();
+                System.out.println("Function 1");
+
+                return Map.of("msg", "Function 1");
+            }))
+            .addNode("node_2", node_async(state -> {
+                System.out.println("Function 2 - Previous: " + state.msg());
+                return Map.of("msg", "Function 2");
+            }))
+            .addNode("node_3", node_async(state -> {
+                System.out.println("Function 3 - Previous: " + state.msg());
+                return Map.of("msg", "Function 3");
+            }))
+            .addEdge("node_1", "node_2")
+            .addEdge("node_2", "node_3")
+            .addEdge("node_3", END)
+            .compile(config.build())
+            ;
+
     }
 
     public static CompiledGraph<State> buildSingleGraph() throws Exception {
