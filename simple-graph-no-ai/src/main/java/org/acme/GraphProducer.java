@@ -115,11 +115,11 @@ public class GraphProducer {
                 return Map.of("msg", "Function 1");
             }))
             .addNode("node_2", node_async(state -> {
-                System.out.println("Function 2");
+                System.out.println("Function 2 - Previous: " + state.msg());
                 return Map.of("msg", "Function 2");
             }))
             .addNode("node_3", node_async(state -> {
-                System.out.println("Function 3");
+                System.out.println("Function 3 - Previous: " + state.msg());
                 return Map.of("msg", "Function 3");
             }))
             .addEdge("node_1", "node_2")

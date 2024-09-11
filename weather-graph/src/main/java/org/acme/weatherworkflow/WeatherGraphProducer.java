@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Map;
-import org.acme.weather.Daily;
+
 import org.acme.weather.DailyWeatherData;
 import org.acme.weather.WeatherForecast;
 import org.bsc.langgraph4j.CompileConfig;
