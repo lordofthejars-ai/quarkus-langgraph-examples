@@ -45,11 +45,7 @@ public class HumanGraphProducer {
         public Optional<String> msg2() {
             return value("msg2");
         }
-
-        public Optional<String> msg3() {
-            return value("msg3");
-        }
-
+        
     }
 
     private Map<String, Object> toUpperCase(State state) {
