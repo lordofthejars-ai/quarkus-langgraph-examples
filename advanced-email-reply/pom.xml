@@ -145,6 +145,34 @@
 
     <profiles>
         <profile>
+            <id>observability</id>
+            <activation>
+                <property>
+                    <name>observability</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-opentelemetry</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-observability-devservices-lgtm</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>io.quarkiverse.micrometer.registry</groupId>
+                    <artifactId>quarkus-micrometer-registry-otlp</artifactId>
+                    <version>3.2.4</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>native</id>
             <activation>
                 <property>
