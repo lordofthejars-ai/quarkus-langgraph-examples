@@ -13,8 +13,8 @@
 
     <quarkus.platform.version>3.15.1</quarkus.platform.version>
     <langgraph.version>1.0-beta5</langgraph.version>
-    <langchain4j.extension.version>0.18.0</langchain4j.extension.version>
-    <langchain4j.version>0.34.0</langchain4j.version>
+    <langchain4j.extension.version>0.20.1</langchain4j.extension.version>
+    <langchain4j.version>0.35.0</langchain4j.version>
   </properties>
   
 </project>
