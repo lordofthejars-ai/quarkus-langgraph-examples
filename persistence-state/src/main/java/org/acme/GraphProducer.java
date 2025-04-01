@@ -40,13 +40,10 @@ public class GraphProducer {
 
     public CompiledGraph<State> buildSingleGraphTimeTravel() throws Exception {
 
-        CompileConfig.Builder config = new CompileConfig.Builder();
-
-        if( checkpointSaver != null ) {
-            config.checkpointSaver(checkpointSaver);
-        }
-
-        config.interruptAfter("node_2");
+        CompileConfig config = CompileConfig.builder()
+            .checkpointSaver(checkpointSaver)
+            .interruptAfter("node_2")
+            .build();
 
         return new StateGraph<>(State::new)
             .addEdge(START,"node_1")
@@ -67,7 +64,7 @@ public class GraphProducer {
             .addEdge("node_1", "node_2")
             .addEdge("node_2", "node_3")
             .addEdge("node_3", END)
-            .compile(config.build())
+            .compile(config)
             ;
     }
 

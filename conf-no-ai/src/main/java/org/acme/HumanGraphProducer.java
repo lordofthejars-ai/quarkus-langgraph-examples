@@ -1,6 +1,5 @@
 package org.acme;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -73,10 +72,10 @@ public class HumanGraphProducer {
     @Named("human-conditional-graph")
     @Singleton
     CompiledGraph<State> createHumanGraph(BaseCheckpointSaver checkpointSaver) throws GraphStateException {
-        CompileConfig.Builder config = new CompileConfig.Builder();
-        config.checkpointSaver(checkpointSaver);
 
-        config.interruptAfter("node_2", "node_3");
+        var compileConfig = CompileConfig.builder()
+            .checkpointSaver(checkpointSaver)
+            .interruptAfter("node_2", "node_3");
 
         return new StateGraph<>(State::new)
             .addEdge(StateGraph.START,"node_1")
@@ -89,7 +88,7 @@ public class HumanGraphProducer {
             .addEdge("node_2", "node_4")
             .addEdge("node_3", "node_4")
             .addEdge("node_4", StateGraph.END)
-            .compile(config.build());
+            .compile(compileConfig.build());
 
     }
 
