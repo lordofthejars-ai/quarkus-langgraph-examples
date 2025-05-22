@@ -54,7 +54,7 @@ public class GraphResource {
     @POST
     @Path("/human/continue/{userId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String continueHumanGraph(String content, @RestPath String userId) throws Exception {
+    public String continueHumanGraph(@RestPath String userId) throws Exception {
 
         var runnableConfig =  RunnableConfig.builder()
             .threadId(userId)
