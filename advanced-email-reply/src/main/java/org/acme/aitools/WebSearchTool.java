@@ -1,7 +1,6 @@
 package org.acme.aitools;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.rag.content.Content;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.WebSearchContentRetriever;
@@ -20,14 +19,14 @@ public class WebSearchTool {
     WebSearchEngine webSearchEngine;
 
     @Inject
-    ChatLanguageModel chatModel;
+    ChatModel chatModel;
 
     @Inject
     Logger logger;
 
     public String search(String question) {
 
-        String query = chatModel.generate("""
+        String query = chatModel.chat("""
             Transform the user's question into a suitable query for the 
             Tavily search engine. The query should yield the results relevant to answering the user's question.
             "User's question: """ + question);

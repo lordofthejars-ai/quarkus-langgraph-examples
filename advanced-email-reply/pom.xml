@@ -18,9 +18,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+        <quarkus.platform.version>3.22.3</quarkus.platform.version>
+        <langchain4j.extension.version>1.0.0.CR1</langchain4j.extension.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.3.1</surefire-plugin.version>
-        <langgraph.version>1.5.1</langgraph.version>
+        <langgraph.version>1.5.12</langgraph.version>
     </properties>
 
     <dependencyManagement>
@@ -44,6 +46,11 @@
         <dependency>
             <groupId>io.quarkiverse.langchain4j</groupId>
             <artifactId>quarkus-langchain4j-openai</artifactId>
+            <version>${langchain4j.extension.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-core</artifactId>
             <version>${langchain4j.extension.version}</version>
         </dependency>
         <dependency>
